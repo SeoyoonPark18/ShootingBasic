@@ -7,6 +7,9 @@ public class PBFireCtrl : MonoBehaviour
     public GameObject bullet;
     public Transform firePos;
 
+    public float fireRate = 1.0f;
+    private float nextFire = 0.0f;
+
     void Start()
     {
         
@@ -14,19 +17,17 @@ public class PBFireCtrl : MonoBehaviour
     
     void Update()
     {
-        //InvokeRepeating("Invoketimer", 1f, 1f);
         if (Input.GetMouseButton(0))
         {
-            GameObject obj = Instantiate(bullet, firePos.position, firePos.rotation);
+            if(Time.time >= nextFire)
+            {
+                Fire();
+                nextFire = Time.time + fireRate;
+            }
         }
     }
-
-    void Invoketimer()
+    void Fire()
     {
-        if (Input.GetMouseButton(0))
-        {
-            GameObject obj = Instantiate(bullet, firePos.position, firePos.rotation);
-        }
-        
+        Instantiate(bullet, firePos.position, firePos.rotation);
     }
 }
