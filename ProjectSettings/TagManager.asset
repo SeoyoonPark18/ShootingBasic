@@ -8,6 +8,8 @@ TagManager:
   - PLAYER
   - ITEMB
   - ITEMY
+  - EBULLET
+  - ENEMY
   layers:
   - Default
   - TransparentFX
@@ -15,9 +17,9 @@ TagManager:
   - ENEMY
   - Water
   - UI
-  - 
-  - 
-  - 
+  - EBULLET
+  - PBULLET
+  - ITEM
   - 
   - 
   - 

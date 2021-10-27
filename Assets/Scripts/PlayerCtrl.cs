@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCtrl : MonoBehaviour
 {
     public int hp = 10;
+    public Text hpText;
+    Rigidbody rb;
+    public GameObject gameOver;
 
     public GameObject turret;
     public float rotSpeed = 10.0f;
@@ -22,6 +26,7 @@ public class PlayerCtrl : MonoBehaviour
     void Start()
     {
         tr = GetComponent<Transform>();
+        rb = GetComponent<Rigidbody>();
     }
     
     void Update()
@@ -53,11 +58,29 @@ public class PlayerCtrl : MonoBehaviour
         {
             hp++;
             Destroy(collision.gameObject);
+            hpText.text = "Player HP: " + hp;
         }
         if (collision.collider.tag == "ITEMB")
         {
             fireRate -= 0.2f;
             Destroy(collision.gameObject);
+        }
+        if (collision.collider.tag == "ENEMY")
+        {
+            hp--;
+            hpText.text = "Player HP: " + hp;
+        }
+        if (collision.collider.tag == "EBULLET")
+        {
+            hp--;
+            Destroy(collision.gameObject);
+            hpText.text = "Player HP: " + hp;
+        }
+        if (hp < 1)
+        {
+            rb.velocity = Vector3.zero;
+            rb.AddForce(0, 3000, 0);
+            gameOver.SetActive(true);
         }
     }
 
